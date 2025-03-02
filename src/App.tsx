@@ -1,7 +1,11 @@
+import LoginPage from './page/login/page';
+import SignupPage from './page/signup/page';
+
 function App() {
   return (
     <>
-      <h1 className="text-red-500 text-3xl font-bold">Hello world!</h1>
+      {/* <LoginPage /> */}
+      <SignupPage />
     </>
   );
 }
