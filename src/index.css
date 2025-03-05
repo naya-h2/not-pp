@@ -13,6 +13,7 @@ body {
   max-width: 480px;
   margin: 0 auto;
   padding: 24px;
+  padding-bottom: 44px;
 
   font-size: 14px;
 }

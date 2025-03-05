@@ -5,6 +5,7 @@ import {
   Input,
   InputAdornment,
   InputLabel,
+  TextField,
 } from '@mui/material';
 import { useState } from 'react';
 
@@ -31,29 +32,36 @@ function LoginPage() {
         <br />
         입력하세요
       </h1>
-      <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-        <Input
-          id="standard-adornment-password"
-          type={showPassword ? 'text' : 'password'}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label={
-                  showPassword ? 'hide the password' : 'display the password'
-                }
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                onMouseUp={handleMouseUpPassword}
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          }
-        />
-      </FormControl>
 
-      <div className="text-[#7a7a7a] text-[12px] my-8 text-center">
+      <div className="flex flex-col gap-6 my-9">
+        <TextField variant="standard" fullWidth label="학번" />
+        <FormControl variant="standard" fullWidth>
+          <InputLabel htmlFor="standard-adornment-password">
+            비밀번호
+          </InputLabel>
+          <Input
+            fullWidth
+            id="standard-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label={
+                    showPassword ? 'hide the password' : 'display the password'
+                  }
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  onMouseUp={handleMouseUpPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+      </div>
+
+      <div className="text-[#7a7a7a] text-[12px] mb-8 mt-16 text-center">
         비밀번호를 잊으셨나요?{' '}
         <button className="ml-1 text-[#f79489] underline">
           비밀번호 재설정
