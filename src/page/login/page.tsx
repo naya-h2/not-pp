@@ -32,6 +32,7 @@ function LoginPage() {
       localStorage.setItem('npp-access', data.access);
       localStorage.setItem('npp-refresh', data.refresh);
       window.alert('환영합니다!');
+      window.location.href = '/';
     } else {
       setError(
         'student_id',

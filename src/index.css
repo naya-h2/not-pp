@@ -1,5 +1,20 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-coral-main: #f79489;
+  --color-coral-hover: #fadcd9;
+  --color-coral-bg: #f9f1f0;
+  --color-grey-700: #4d4d4d;
+  --color-grey-500: #7a7a7a;
+  --color-grey-200: #ebebeb;
+
+  --text-12: 0.75rem;
+  --text-14: 0.875rem;
+  --text-16: 1rem;
+  --text-20: 1.25rem;
+  --text-24: 1.5rem;
+}
+
 :root {
   font-family: 'Pretendard Variable', Pretendard, -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI',
@@ -9,6 +24,7 @@
 }
 
 body {
+  position: relative;
   min-height: 100dvh;
   max-width: 480px;
   margin: 0 auto;
