@@ -1,5 +1,5 @@
 export const MEMBER = {
-  gender: ['Male', 'Female'],
+  gender: ['남', '여'],
   major: [
     '영문학과',
     '유럽학과',

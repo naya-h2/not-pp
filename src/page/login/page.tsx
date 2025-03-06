@@ -1,9 +1,9 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, InputAdornment, TextField } from '@mui/material';
 import { useState } from 'react';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useForm } from 'react-hook-form';
 import { instance } from '../../axios/instance';
+import BackButton from '../../components/BackButton';
 
 function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,10 +44,8 @@ function LoginPage() {
   };
 
   return (
-    <form className="pt-10 relative" onSubmit={handleSubmit(login)}>
-      <button type="button" onClick={() => (window.location.href = '/')}>
-        <ArrowBackIosIcon className="absolute top-0 left-0" />
-      </button>
+    <form className="pt-10" onSubmit={handleSubmit(login)}>
+      <BackButton link="/" />
       <h1>
         학번과 비밀번호를
         <br />
