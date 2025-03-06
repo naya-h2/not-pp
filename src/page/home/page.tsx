@@ -35,6 +35,13 @@ function HomePage() {
     getMyProfile();
   }, []);
 
+  const logout = () => {
+    localStorage.removeItem('npp-access');
+    localStorage.removeItem('npp-refresh');
+
+    window.location.href = '/';
+  };
+
   return (
     <>
       <div className="flex justify-between items-end">
@@ -72,6 +79,13 @@ function HomePage() {
           </a>
         ))}
       </div>
+
+      <button
+        onClick={logout}
+        className="text-grey-500 text-center w-[calc(100vw-40px)] absolute bottom-12"
+      >
+        로그아웃
+      </button>
     </>
   );
 }
