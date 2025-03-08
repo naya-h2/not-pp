@@ -8,6 +8,7 @@ import ReleasePage from './page/my-profile/release/page';
 import ListPage from './page/list/page';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import MyProfileEditPage from './page/my-profile/edit/page';
+import ProfilePage from './page/profile/page';
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/my-profile/release" element={<ReleasePage />} />
         <Route path="/my-profile/edit" element={<MyProfileEditPage />} />
         <Route path="/list" element={<ListPage />} />
+        <Route path="/profile/:student_id" element={<ProfilePage />} />
       </Routes>
     </QueryClientProvider>
   );

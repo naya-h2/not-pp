@@ -1,6 +1,3 @@
-import { useEffect, useState } from 'react';
-import { authInstance } from '../../axios/instance';
-import { MemberType } from '../../type/member';
 import { useGetProfile } from '../../hooks/useGetProfile';
 
 const GUIDE_MSG = {

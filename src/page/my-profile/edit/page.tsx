@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { authInstance } from '../../../axios/instance';
 import { getEditErrMsg } from '../../../util/getErrText';
+import Loading from '../../../components/Loading';
 
 function MyProfileEditPage() {
   const profile = useGetProfile();
@@ -122,7 +123,7 @@ function MyProfileEditPage() {
           </button>
         </div>
       ) : (
-        <div>로딩중</div>
+        <Loading />
       )}
     </>
   );
