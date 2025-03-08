@@ -44,7 +44,7 @@ authInstance.interceptors.response.use(
       }
       if (error.status === 500) {
         window.alert('서버 장애 발생\n잠시 후 다시 시도해 주세요.');
-      }
+      } else return { data: error.response.data, status: error.status };
     } catch (err: any) {
       if (err.status === 401) {
         localStorage.removeItem('npp-access');

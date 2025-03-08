@@ -58,7 +58,7 @@ function HomePage() {
             {MENU.map(({ name, link }) => (
               <a key={name} href={link}>
                 <button
-                  className="bg-coral-bg rounded-2xl h-[20dvh] w-full hover:bg-coral-hover"
+                  className="bg-coral-bg rounded-2xl h-[20dvh] w-full hover:bg-coral-hover disabled:!cursor-not-allowed disabled:bg-grey-200 disabled:text-white"
                   disabled={name === '선배 찾기' && profile?.senior}
                 >
                   {name}

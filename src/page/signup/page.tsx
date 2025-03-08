@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import SignupLayout from './layout';
 import BackButton from '../../components/BackButton';
-import StepOne from './components/stepOne';
 import { instance } from '../../axios/instance';
 import StepTwo from './components/StepTwo';
 import StepThree from './components/StepThree';
@@ -10,6 +9,7 @@ import StepFour from './components/StepFour';
 import StepFive from './components/StepFive';
 import { MEMBER } from '../../const/member';
 import { getSignupErrMsg } from '../../util/getErrText';
+import StepOne from './components/StepOne';
 
 type SignupStepType = '이메일' | '인증' | '필수정보' | '학과' | '비밀번호';
 const SIGNUP_STEP: SignupStepType[] = [

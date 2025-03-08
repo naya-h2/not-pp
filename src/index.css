@@ -2,8 +2,10 @@
 
 @theme {
   --color-coral-main: #f79489;
+  --color-coral-secondary: #f8afa6;
   --color-coral-hover: #fadcd9;
   --color-coral-bg: #f9f1f0;
+
   --color-grey-700: #4d4d4d;
   --color-grey-500: #7a7a7a;
   --color-grey-200: #ebebeb;

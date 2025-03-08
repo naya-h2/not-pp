@@ -1,11 +1,10 @@
-import { MEMBER } from '../../const/member';
 import { useGetProfile } from '../../hooks/useGetProfile';
-
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
 import BackButton from '../../components/BackButton';
 import kakaoIcon from '../../assets/sns_kakao.svg';
 import { ReactElement } from 'react';
+import DefaultProfile from '../../components/DefaultProfile';
 
 const INFO_LIST: {
   type: 'insta_id' | 'kakao_id' | 'email';
@@ -33,13 +32,13 @@ function MyProfilePage() {
       <BackButton link="/" />
       {profile ? (
         <div className="pb-24">
-          <div className="text-20 mb-1 mt-6">
-            <b>{profile?.name}</b> ({profile.display ? '공개' : '비공개'})
-          </div>
-          <p className="text-grey-500 text-12">
-            {profile.student_id} · {MEMBER.major[profile.major]} ·{' '}
-            {MEMBER.gender[profile.gender]}
-          </p>
+          <DefaultProfile
+            name={profile.name}
+            display={profile.display}
+            gender={profile.gender}
+            major={profile.major}
+            student_id={profile.student_id}
+          />
 
           <div className="flex flex-col gap-2 my-4">
             {INFO_LIST.map(({ type, icon }) => (

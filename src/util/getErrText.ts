@@ -10,3 +10,13 @@ export const getSignupErrMsg = (msg: string) => {
       return '유효하지 않은 학번입니다.';
   }
 };
+
+export const getEditErrMsg = (msg: string) => {
+  switch (msg) {
+    case 'Ensure this field has no more than 500 characters.':
+      return {
+        inputType: 'message',
+        errMsg: '메세지는 최대 200자까지 입력 가능합니다.',
+      };
+  }
+};
