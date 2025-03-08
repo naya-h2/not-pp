@@ -17,6 +17,7 @@ function ReleasePage() {
     });
     if (status === 200) {
       window.alert('상태 변경이 완료되었습니다');
+      window.location.href = '/my-profile';
     }
   };
   useEffect(() => {
@@ -29,7 +30,7 @@ function ReleasePage() {
 
   return (
     <>
-      <title>내 프로필 공개 | not-PP</title>
+      <title>내 프로필 공개 | 두근두근 선배 찾기</title>
       <meta
         name="description"
         content="내 프로필 공개 여부를 설정하는 페이지입니다."

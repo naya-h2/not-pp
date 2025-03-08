@@ -23,7 +23,7 @@ function ListPage() {
 
   return (
     <>
-      <title>선배 찾기 | not-PP</title>
+      <title>선배 찾기 | 두근두근 선배 찾기</title>
       <meta
         name="description"
         content="같은 학과 선배들의 프로필 리스트를 확인하는 페이지입니다."

@@ -68,7 +68,7 @@ function SignupPage() {
       name,
       gender,
       major: MEMBER.major.findIndex((val) => val === major),
-      email,
+      email: `${email}@sogang.ac.kr`,
     });
 
     if (status === 201) {
@@ -79,7 +79,7 @@ function SignupPage() {
     if (status === 400) {
       if (data?.email) {
         window.alert('이미 존재하는 회원입니다.');
-        window.location.href = '/';
+        // window.location.href = '/';
       } else if (data?.password) {
         methods.setError(
           'password',
@@ -161,7 +161,7 @@ function SignupPage() {
 
   return (
     <>
-      <title>회원가입 | not-PP</title>
+      <title>회원가입 | 두근두근 선배 찾기</title>
       <meta name="description" content="회원가입 페이지입니다." />
 
       <FormProvider {...methods}>

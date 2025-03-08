@@ -8,7 +8,7 @@ function MyProfilePage() {
 
   return (
     <>
-      <title>내 프로필 수정 | not-PP</title>
+      <title>내 프로필 수정 | 두근두근 선배 찾기</title>
       <meta
         name="description"
         content="내 프로필 정보를 수정할 수 있는 페이지입니다."

@@ -45,7 +45,7 @@ function LoginPage() {
 
   return (
     <>
-      <title>로그인 | not-PP</title>
+      <title>로그인 | 두근두근 선배 찾기</title>
       <meta name="description" content="로그인 페이지입니다." />
       <form className="pt-10" onSubmit={handleSubmit(login)}>
         <BackButton link="/" />

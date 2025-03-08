@@ -14,14 +14,17 @@ function ProfilePage() {
   } = useQuery({
     queryKey: ['student', params.student_id],
     queryFn: async () => {
-      const { data } = await authInstance.get(`/student/${params.student_id}`);
+      const { data, status } = await authInstance.get(
+        `/student/${params.student_id}`
+      );
+      if (status === 400) window.location.href = '/404';
       return data;
     },
   });
 
   return (
     <>
-      <title>선배 보기 - {params.student_id} | not-PP</title>
+      <title>선배 보기 | 두근두근 선배 찾기</title>
       <meta name="description" content="선배 세부 프로필 확인 페이지입니다." />
 
       <BackButton link="/list" />
