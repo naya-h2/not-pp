@@ -7,7 +7,7 @@ function StepTwo() {
 
   const reVerify = async () => {
     const { email } = getValues();
-    const { status } = await instance.put('/auth/email', {
+    await instance.put('/auth/email', {
       email: `${email}@sogang.ac.kr`,
     });
   };
