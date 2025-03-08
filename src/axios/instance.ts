@@ -9,7 +9,7 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
-    return error;
+    return { data: error.response.data, status: error.status };
   }
 );
 

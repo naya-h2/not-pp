@@ -5,28 +5,27 @@ import BackButton from '../../components/BackButton';
 import StepOne from './components/stepOne';
 import { instance } from '../../axios/instance';
 import StepTwo from './components/StepTwo';
+import StepThree from './components/StepThree';
+import StepFour from './components/StepFour';
+import StepFive from './components/StepFive';
+import { MEMBER } from '../../const/member';
+import { getSignupErrMsg } from '../../util/getErrText';
 
-type SignupStepType =
-  | '이메일'
-  | '인증'
-  | '필수정보'
-  | '학과'
-  | '비밀번호'
-  | '완료';
+type SignupStepType = '이메일' | '인증' | '필수정보' | '학과' | '비밀번호';
 const SIGNUP_STEP: SignupStepType[] = [
   '이메일',
   '인증',
   '필수정보',
   '학과',
   '비밀번호',
-  '완료',
 ];
 
 function SignupPage() {
   const [step, setStep] = useState(0);
 
   const methods = useForm({ mode: 'onBlur' });
-  const { email, verify_code } = methods.watch();
+  const { email, verify_code, student_id, name, gender, major } =
+    methods.watch();
   const [isLoading, setIsLoading] = useState(false);
   const [verify, setVerify] = useState(false);
 
@@ -59,6 +58,50 @@ function SignupPage() {
     return true;
   };
 
+  const postSignup = async () => {
+    const { student_id, password, password_check, name, gender, major, email } =
+      methods.getValues();
+    const { data, status } = await instance.post('/auth/signup', {
+      student_id,
+      password,
+      password2: password_check,
+      name,
+      gender,
+      major: MEMBER.major.findIndex((val) => val === major),
+      email,
+    });
+
+    if (status === 201) {
+      window.alert(`${data.name}님 가입을 환영합니다!`);
+      window.location.href = '/login';
+    }
+
+    if (status === 400) {
+      if (data?.email) {
+        window.alert('이미 존재하는 회원입니다.');
+        window.location.href = '/';
+      } else if (data?.password) {
+        methods.setError(
+          'password',
+          { message: getSignupErrMsg(data.password[0]) },
+          { shouldFocus: true }
+        );
+        methods.setError('password_check', {
+          message: getSignupErrMsg(data.password[0]),
+        });
+      } else if (data?.student_id) {
+        methods.setError(
+          'student_id',
+          { message: getSignupErrMsg(data.student_id[0]) },
+          { shouldFocus: true }
+        );
+        setStep(2);
+      }
+
+      setIsLoading(false);
+    }
+  };
+
   const signup = async () => {
     setIsLoading(true);
     switch (SIGNUP_STEP[step]) {
@@ -68,10 +111,14 @@ function SignupPage() {
       case '인증':
         if (await verifyEmail()) break;
         else return;
+      case '비밀번호':
+        await postSignup();
+        break;
     }
+
     setIsLoading(false);
 
-    if (step < SIGNUP_STEP.length) handleNextStep();
+    if (step < SIGNUP_STEP.length - 1) handleNextStep();
   };
 
   const STEP_CONTENT_LIST = {
@@ -92,30 +139,23 @@ function SignupPage() {
     필수정보: {
       heading: '필수 정보를 입력해주세요',
       detailText: '',
-      children: <StepOne />,
-      btnDisabled: !Boolean(email),
+      children: <StepThree />,
+      btnDisabled: !Boolean(student_id && name && gender),
       btnText: undefined,
     },
     학과: {
       heading: '학과를 선택해주세요',
       detailText: '같은 과 선후배를 찾아드릴게요',
-      children: <StepOne />,
-      btnDisabled: !Boolean(email),
+      children: <StepFour />,
+      btnDisabled: !Boolean(major),
       btnText: undefined,
     },
     비밀번호: {
       heading: '비밀번호를 설정해주세요',
       detailText: '거의 다 왔어요!',
-      children: <StepOne />,
-      btnDisabled: !Boolean(email),
+      children: <StepFive />,
+      btnDisabled: false,
       btnText: undefined,
-    },
-    완료: {
-      heading: '가입을 축하드립니다!',
-      detailText: '',
-      children: <StepOne />,
-      btnDisabled: !Boolean(email),
-      btnText: '로그인하러가기',
     },
   };
 
