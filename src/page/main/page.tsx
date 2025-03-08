@@ -9,11 +9,11 @@ function MainPage() {
         className="mt-[124px]"
       />
 
-      <h1 className="font-bold mt-6 mb-2">당신 근처의 당근마켓</h1>
+      <h1 className="font-bold mt-6 mb-2">두근두근 선배 찾기</h1>
       <p className="text-center text-[12px]">
-        중고 거래부터 동네 정보까지,
+        당신의 선배를 찾아서
         <br />
-        지금 내 동네를 선택하고 시작해보세요!
+        지금 내 학과를 선택하고 시작해보세요!
       </p>
 
       <button

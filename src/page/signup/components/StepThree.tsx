@@ -50,12 +50,12 @@ function StepThree() {
           <FormControlLabel
             value="0"
             control={<Radio size="small" />}
-            label="Male"
+            label="남성"
           />
           <FormControlLabel
             value="1"
             control={<Radio size="small" />}
-            label="Female"
+            label="여성"
           />
         </RadioGroup>
       </FormControl>

@@ -44,67 +44,71 @@ function LoginPage() {
   };
 
   return (
-    <form className="pt-10" onSubmit={handleSubmit(login)}>
-      <BackButton link="/" />
-      <h1>
-        학번과 비밀번호를
-        <br />
-        입력하세요
-      </h1>
+    <>
+      <title>로그인 | not-PP</title>
+      <meta name="description" content="로그인 페이지입니다." />
+      <form className="pt-10" onSubmit={handleSubmit(login)}>
+        <BackButton link="/" />
+        <h1>
+          학번과 비밀번호를
+          <br />
+          입력하세요
+        </h1>
 
-      <div className="flex flex-col gap-6 my-9">
-        <TextField
-          label="학번"
-          variant="standard"
-          fullWidth
-          {...register('student_id', { required: '학번을 입력해주세요' })}
-          error={Boolean(formState.errors?.student_id) ?? false}
-          helperText={String(formState.errors?.student_id?.message ?? '')}
-        />
-        <TextField
-          label="비밀번호"
-          fullWidth
-          variant="standard"
-          type={showPassword ? 'text' : 'password'}
-          {...register('password', { required: '비밀번호를 입력해주세요' })}
-          error={Boolean(formState.errors?.password) ?? false}
-          helperText={String(formState.errors?.password?.message ?? '')}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label={
-                      showPassword
-                        ? 'hide the password'
-                        : 'display the password'
-                    }
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    onMouseUp={handleMouseUpPassword}
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
-        />
-      </div>
+        <div className="flex flex-col gap-6 my-9">
+          <TextField
+            label="학번"
+            variant="standard"
+            fullWidth
+            {...register('student_id', { required: '학번을 입력해주세요' })}
+            error={Boolean(formState.errors?.student_id) ?? false}
+            helperText={String(formState.errors?.student_id?.message ?? '')}
+          />
+          <TextField
+            label="비밀번호"
+            fullWidth
+            variant="standard"
+            type={showPassword ? 'text' : 'password'}
+            {...register('password', { required: '비밀번호를 입력해주세요' })}
+            error={Boolean(formState.errors?.password) ?? false}
+            helperText={String(formState.errors?.password?.message ?? '')}
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label={
+                        showPassword
+                          ? 'hide the password'
+                          : 'display the password'
+                      }
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      onMouseUp={handleMouseUpPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
+          />
+        </div>
 
-      <div className="text-[#7a7a7a] text-[12px] mb-8 mt-16 text-center">
-        비밀번호를 잊으셨나요?{' '}
-        <button
-          onClick={() => window.alert('준비 중인 기능입니다.')}
-          type="button"
-          className="ml-1 text-[#f79489] underline"
-        >
-          비밀번호 재설정
-        </button>
-      </div>
+        <div className="text-[#7a7a7a] text-[12px] mb-8 mt-16 text-center">
+          비밀번호를 잊으셨나요?{' '}
+          <button
+            onClick={() => window.alert('준비 중인 기능입니다.')}
+            type="button"
+            className="ml-1 text-[#f79489] underline"
+          >
+            비밀번호 재설정
+          </button>
+        </div>
 
-      <button className="btn_primary">로그인</button>
-    </form>
+        <button className="btn_primary">로그인</button>
+      </form>
+    </>
   );
 }
 

@@ -160,26 +160,31 @@ function SignupPage() {
   };
 
   return (
-    <FormProvider {...methods}>
-      <form onSubmit={methods.handleSubmit(signup)}>
-        <BackButton
-          onClickFunc={
-            step === 0 ? undefined : () => setStep((curStep) => --curStep)
-          }
-          link="/"
-        />
-        <SignupLayout
-          heading={STEP_CONTENT_LIST[SIGNUP_STEP[step]].heading}
-          detailText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].detailText}
-          disabled={
-            STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnDisabled || isLoading
-          }
-          btnText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnText}
-        >
-          {STEP_CONTENT_LIST[SIGNUP_STEP[step]].children}
-        </SignupLayout>
-      </form>
-    </FormProvider>
+    <>
+      <title>회원가입 | not-PP</title>
+      <meta name="description" content="회원가입 페이지입니다." />
+
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(signup)}>
+          <BackButton
+            onClickFunc={
+              step === 0 ? undefined : () => setStep((curStep) => --curStep)
+            }
+            link="/"
+          />
+          <SignupLayout
+            heading={STEP_CONTENT_LIST[SIGNUP_STEP[step]].heading}
+            detailText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].detailText}
+            disabled={
+              STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnDisabled || isLoading
+            }
+            btnText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnText}
+          >
+            {STEP_CONTENT_LIST[SIGNUP_STEP[step]].children}
+          </SignupLayout>
+        </form>
+      </FormProvider>
+    </>
   );
 }
 

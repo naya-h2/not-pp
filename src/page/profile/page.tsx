@@ -21,6 +21,9 @@ function ProfilePage() {
 
   return (
     <>
+      <title>선배 보기 - {params.student_id} | not-PP</title>
+      <meta name="description" content="선배 세부 프로필 확인 페이지입니다." />
+
       <BackButton link="/list" />
       {isLoading && <Loading />}
       {isSuccess && <DetailProfile {...profile} />}

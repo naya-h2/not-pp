@@ -54,6 +54,9 @@ function MyProfileEditPage() {
 
   return (
     <>
+      <title>내 프로필 수정 | not-PP</title>
+      <meta name="description" content="내 프로필 수정 페이지입니다." />
+
       <BackButton link="/my-profile" />
       {profile ? (
         <div className="pb-24">
@@ -116,7 +119,7 @@ function MyProfileEditPage() {
           <button
             disabled={editDisabled}
             onClick={editProfile}
-            className="absolute left-5 bottom-11 btn_primary !w-[calc(100vw-40px)] text-coral-main rounded-3xl
+            className="absolute left-5 bottom-11 btn_primary !w-[calc(100vw-40px)] max-w-[440px] text-coral-main rounded-3xl
       "
           >
             수정하기

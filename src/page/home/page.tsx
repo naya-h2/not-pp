@@ -68,7 +68,7 @@ function HomePage() {
 
       <button
         onClick={logout}
-        className="text-grey-500 text-center w-[calc(100vw-40px)] absolute bottom-12"
+        className="text-grey-500 text-center w-[calc(100vw-40px)] max-w-[440px] absolute bottom-12"
       >
         로그아웃
       </button>

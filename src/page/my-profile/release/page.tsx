@@ -28,7 +28,13 @@ function ReleasePage() {
   }, [profile]);
 
   return (
-    <div>
+    <>
+      <title>내 프로필 공개 | not-PP</title>
+      <meta
+        name="description"
+        content="내 프로필 공개 여부를 설정하는 페이지입니다."
+      />
+
       <BackButton link="/" />
       <h1 className="my-5">프로필 공개 여부를 설정하세요</h1>
       {profile ? (
@@ -36,7 +42,7 @@ function ReleasePage() {
       ) : (
         <CircularProgress size={30} />
       )}
-    </div>
+    </>
   );
 }
 

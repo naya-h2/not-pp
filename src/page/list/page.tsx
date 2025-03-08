@@ -5,6 +5,7 @@ import { MEMBER } from '../../const/member';
 import { useGetProfile } from '../../hooks/useGetProfile';
 import { authInstance } from '../../axios/instance';
 import { MemberType } from '../../type/member';
+import Loading from '../../components/Loading';
 
 function ListPage() {
   const profile = useGetProfile();
@@ -12,7 +13,6 @@ function ListPage() {
     data: profileList,
     isLoading,
     isSuccess,
-    isError,
   } = useQuery({
     queryKey: ['profile_list'],
     queryFn: async () => {
@@ -23,6 +23,12 @@ function ListPage() {
 
   return (
     <>
+      <title>선배 찾기 | not-PP</title>
+      <meta
+        name="description"
+        content="같은 학과 선배들의 프로필 리스트를 확인하는 페이지입니다."
+      />
+
       <BackButton link="/" />
       <h1 className="mt-5 mb-2">
         {profile ? profile.name : ''} 님과 같은
@@ -45,6 +51,7 @@ function ListPage() {
               gender={MEMBER.gender[data.gender]}
             />
           ))}
+        {isLoading && <Loading />}
       </div>
     </>
   );
