@@ -1,150 +1,145 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  SelectChangeEvent,
-  TextField,
-} from '@mui/material';
-import { FormEvent, useState } from 'react';
-import { RegisterOptions, useForm } from 'react-hook-form';
-import { MEMBER } from '../../const/member';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import SignupLayout from './layout';
+import BackButton from '../../components/BackButton';
+import StepOne from './components/stepOne';
+import { instance } from '../../axios/instance';
+import StepTwo from './components/StepTwo';
 
-const INPUT_LIST: {
-  id: string;
-  type: string;
-  label: string;
-  required: boolean;
-  placeholder: string;
-  helperText: string;
-  option?: RegisterOptions;
-}[] = [
-  {
-    id: 'student_id',
-    type: 'text',
-    label: '학번',
-    required: true,
-    placeholder: '20252025',
-    helperText: '',
-    option: {
-      maxLength: 8,
-      minLength: 1,
-    },
-  },
-  {
-    id: 'password',
-    type: 'text',
-    label: '비밀번호',
-    required: true,
-    placeholder: '',
-    helperText: '8자 이상 입력',
-    option: {
-      maxLength: 128,
-      minLength: 8,
-    },
-  },
-  {
-    id: 'password_re',
-    type: 'text',
-    label: '비밀번호 확인',
-    required: true,
-    placeholder: '',
-    helperText: '',
-  },
-  {
-    id: 'name',
-    type: 'text',
-    label: '이름',
-    required: true,
-    placeholder: '',
-    helperText: '',
-    option: {
-      maxLength: 32,
-      minLength: 1,
-    },
-  },
-  {
-    id: 'email',
-    type: 'text',
-    label: '이메일',
-    required: true,
-    placeholder: 'npp@example.com',
-    helperText: '',
-  },
+type SignupStepType =
+  | '이메일'
+  | '인증'
+  | '필수정보'
+  | '학과'
+  | '비밀번호'
+  | '완료';
+const SIGNUP_STEP: SignupStepType[] = [
+  '이메일',
+  '인증',
+  '필수정보',
+  '학과',
+  '비밀번호',
+  '완료',
 ];
 
 function SignupPage() {
-  const { register, handleSubmit } = useForm({});
-  const [major, setMajor] = useState('');
+  const [step, setStep] = useState(0);
 
-  const handleMajorChange = (event: SelectChangeEvent) => {
-    setMajor(event.target.value as string);
+  const methods = useForm({ mode: 'onBlur' });
+  const { email, verify_code } = methods.watch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [verify, setVerify] = useState(false);
+
+  const handleNextStep = () => setStep((curStep) => ++curStep);
+
+  const sendEmail = async () => {
+    const { email } = methods.getValues();
+    await instance.post('/auth/email', {
+      email: `${email}@sogang.ac.kr`,
+    });
   };
 
-  const handleSignupSubmit = () => {
-    console.log('회원가입');
+  const verifyEmail = async () => {
+    const { email, verify_code } = methods.getValues();
+
+    const { status } = await instance.post('/auth/email/verify', {
+      email: `${email}@sogang.ac.kr`,
+      key: verify_code,
+    });
+
+    if (status === 400) {
+      methods.setError('verify_code', {
+        message: '인증 번호가 일치하지 않습니다.',
+      });
+      setIsLoading(false);
+      return false;
+    }
+
+    setVerify(true);
+    return true;
+  };
+
+  const signup = async () => {
+    setIsLoading(true);
+    switch (SIGNUP_STEP[step]) {
+      case '이메일':
+        await sendEmail();
+        break;
+      case '인증':
+        if (await verifyEmail()) break;
+        else return;
+    }
+    setIsLoading(false);
+
+    if (step < SIGNUP_STEP.length) handleNextStep();
+  };
+
+  const STEP_CONTENT_LIST = {
+    이메일: {
+      heading: '서강대학교 이메일을 입력해주세요',
+      detailText: '서강대학교 학생 인증을 위해 필요합니다',
+      children: <StepOne />,
+      btnDisabled: !Boolean(email),
+      btnText: undefined,
+    },
+    인증: {
+      heading: '인증 코드를 입력해주세요',
+      detailText: '인증 코드가 입력한 이메일로 전송됐어요!',
+      children: <StepTwo />,
+      btnDisabled: !Boolean(verify_code),
+      btnText: verify ? '다음' : '인증하기',
+    },
+    필수정보: {
+      heading: '필수 정보를 입력해주세요',
+      detailText: '',
+      children: <StepOne />,
+      btnDisabled: !Boolean(email),
+      btnText: undefined,
+    },
+    학과: {
+      heading: '학과를 선택해주세요',
+      detailText: '같은 과 선후배를 찾아드릴게요',
+      children: <StepOne />,
+      btnDisabled: !Boolean(email),
+      btnText: undefined,
+    },
+    비밀번호: {
+      heading: '비밀번호를 설정해주세요',
+      detailText: '거의 다 왔어요!',
+      children: <StepOne />,
+      btnDisabled: !Boolean(email),
+      btnText: undefined,
+    },
+    완료: {
+      heading: '가입을 축하드립니다!',
+      detailText: '',
+      children: <StepOne />,
+      btnDisabled: !Boolean(email),
+      btnText: '로그인하러가기',
+    },
   };
 
   return (
-    <form
-      className="flex flex-col gap-6"
-      onSubmit={handleSubmit(handleSignupSubmit)}
-    >
-      <h1 className="text-2xl text-center font-bold">회원가입</h1>
-
-      <div className="flex flex-col gap-5">
-        {INPUT_LIST.map(
-          ({ id, type, label, required, placeholder, helperText }) => (
-            <TextField
-              key={id}
-              id={id}
-              type={type}
-              label={label}
-              variant="outlined"
-              required={required}
-              fullWidth
-              helperText={helperText}
-              placeholder={placeholder}
-              {...register(id, { required })}
-            />
-          )
-        )}
-
-        <FormControl required>
-          <FormLabel id="gender">성별</FormLabel>
-          <RadioGroup row aria-labelledby="gender" name="gender_group">
-            <FormControlLabel value="male" control={<Radio />} label="남" />
-            <FormControlLabel value="female" control={<Radio />} label="여" />
-          </RadioGroup>
-        </FormControl>
-
-        <FormControl fullWidth required>
-          <InputLabel id="major_label">학과</InputLabel>
-          <Select
-            labelId="major_label"
-            id="major"
-            value={major}
-            label="학과"
-            onChange={handleMajorChange}
-          >
-            {MEMBER.major.map((val) => (
-              <MenuItem key={val} value={val}>
-                {val}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </div>
-
-      <Button size="large" variant="contained" fullWidth>
-        가입하기
-      </Button>
-    </form>
+    <FormProvider {...methods}>
+      <form onSubmit={methods.handleSubmit(signup)}>
+        <BackButton
+          onClickFunc={
+            step === 0 ? undefined : () => setStep((curStep) => --curStep)
+          }
+          link="/"
+        />
+        <SignupLayout
+          heading={STEP_CONTENT_LIST[SIGNUP_STEP[step]].heading}
+          detailText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].detailText}
+          disabled={
+            STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnDisabled || isLoading
+          }
+          btnText={STEP_CONTENT_LIST[SIGNUP_STEP[step]].btnText}
+        >
+          {STEP_CONTENT_LIST[SIGNUP_STEP[step]].children}
+        </SignupLayout>
+      </form>
+    </FormProvider>
   );
 }
 

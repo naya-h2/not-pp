@@ -42,6 +42,9 @@ h1 {
 
 button {
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
 }
 
 .btn_primary {
@@ -53,4 +56,9 @@ button {
   font-size: 14px;
   font-weight: 700;
   color: white;
+
+  &:disabled {
+    background-color: #ebebeb;
+    color: white;
+  }
 }

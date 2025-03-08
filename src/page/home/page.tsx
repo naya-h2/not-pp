@@ -47,13 +47,7 @@ function HomePage() {
               입니다.
             </div>
 
-            <img
-              src="/npp_logo.svg"
-              alt="npp logo"
-              width={64}
-              height={64}
-              // className="absolute top-11 right-5"
-            />
+            <img src="/npp_logo.svg" alt="npp logo" width={64} height={64} />
           </div>
 
           <p className="text-grey-500 whitespace-pre-line mt-3 mb-11">
@@ -64,7 +58,7 @@ function HomePage() {
             {MENU.map(({ name, link }) => (
               <a key={name} href={link}>
                 <button
-                  className="bg-coral-bg rounded-2xl h-[20dvh] w-full hover:bg-coral-hover disabled:!cursor-not-allowed disabled:bg-grey-200 disabled:text-white"
+                  className="bg-coral-bg rounded-2xl h-[20dvh] w-full hover:bg-coral-hover"
                   disabled={name === '선배 찾기' && profile?.senior}
                 >
                   {name}
