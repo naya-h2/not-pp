@@ -1,0 +1,12 @@
+LICENSE
+README.md
+.DS_Store
+
+dist
+build
+
+.git
+.gitignore
+
+.env
+node_modules
